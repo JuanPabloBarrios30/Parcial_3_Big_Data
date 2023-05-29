@@ -1,10 +1,10 @@
 import boto3
 import logging
 from botocore.exceptions import ClientError
-import time
 import statistics
 
 precio_historial = []
+
 
 def process_records(records):
     global precio_historial
@@ -15,18 +15,18 @@ def process_records(records):
         data_dict = eval(data_str)
         precio = data_dict['close']
         precio_historial.append(precio)
-        
-        
+
         if len(precio_historial) >= 21:
             precio_historial_ = precio_historial[:-1]
             bollingerSuperior = bollingerSup(precio_historial_)
-            print("Precio",precio)
-            print("Bollinger",bollingerSuperior)
+            print("Precio", precio)
+            print("Bollinger", bollingerSuperior)
             print("\n\n")
-            
+
             if precio > bollingerSuperior:
                 alert(precio, bollingerSuperior)
             precio_historial = precio_historial[-20:]
+
 
 def bollingerSup(precio):
     bollinger = None
@@ -37,6 +37,7 @@ def bollingerSup(precio):
         bollinger = mediaMovil + (2 * stdMovil)
 
     return bollinger
+
 
 def alert(precio, bollingerSuperior):
     print("# "*29)
@@ -49,36 +50,26 @@ def alert(precio, bollingerSuperior):
     print("#\t\t\t\t\t\t\t#")
     print("#     -> El precio actual superó el limite superior <-  #")
     print("#\t\t\t\t\t\t\t#")
-    print("# Precio actual:\t", precio,"\t\t#")
+    print("# Precio actual:\t", precio, "\t\t#")
     print("# Franja superior:\t", bollingerSuperior, "\t\t#")
     print("#\t\t\t\t\t\t\t#")
     print("# "*29)
 
 
-
 def main():
     stream_name = 'kinesis'
-    
+
     try:
         kinesis_client = boto3.client('kinesis')
-
-        #------------------
-        # Get the shard ID.
-        #------------------
         response = kinesis_client.describe_stream(StreamName=stream_name)
         shard_id = response['StreamDescription']['Shards'][3]['ShardId']
 
-        
         response = kinesis_client.get_shard_iterator(
             StreamName=stream_name,
             ShardId=shard_id,
             ShardIteratorType='TRIM_HORIZON'
         )
         shard_iterator = response['ShardIterator']
-        #-----------------------------------------------------------------
-        # Get the records.
-        # Get max_records from the shard, or run continuously if you wish.
-        #-----------------------------------------------------------------
         max_records = 100
         record_count = 0
 
@@ -87,17 +78,17 @@ def main():
                 ShardIterator=shard_iterator,
                 Limit=1
             )
-            
+
             shard_iterator = response['NextShardIterator']
             records = response['Records']
             record_count += len(records)
             process_records(records)
             try:
                 print(records[0]["Data"])
-            except:
-             pass
-            
-    except ClientError as e:
+            except KeyError:
+                pass
+
+    except ClientError:
         logger = logging.getLogger()
         logger.exception("Couldn't get records from stream %s.", stream_name)
         raise

@@ -7,7 +7,7 @@ STREAM_NAME = "kinesis"
 
 
 def generate_dolar_value():
-    
+
     start_date = datetime(2023, 5, 29, 13, 0, 0)
     end_date = datetime(2023, 5, 29, 18, 0, 0)
     delta = end_date - start_date
