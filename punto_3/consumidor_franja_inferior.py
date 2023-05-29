@@ -51,7 +51,7 @@ def alert(precio, bollingerInferior):
     print("#   -> El precio actual es menor al limite inferior <-  #")
     print("#\t\t\t\t\t\t\t#")
     print("# Precio actual:\t", precio, "\t\t#")
-    print("# Franja superior:\t", bollingerInferior, "\t\t#")
+    print("# Franja inferior:\t", bollingerInferior, "\t\t#")
     print("#\t\t\t\t\t\t\t#")
     print("# "*29)
 
