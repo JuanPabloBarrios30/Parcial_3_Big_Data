@@ -1,0 +1,17 @@
+{
+    "dev": {
+        "app_function": "get_dolar.f",
+        "aws_region": "us-east-1",
+        "project_name": "lambda-1",
+        "runtime": "python3.8",
+        "s3_bucket": "get-info-dolar-jp",
+        "keep_warm": false,
+        "role_name": "LabRole",
+        "manage_roles": false,
+        "apigateway_enabled": false,
+        "events": [{
+            "function": "get_dolar.f",
+            "expression": "cron(0 7 * * ? *)"
+        }]   
+    }
+}

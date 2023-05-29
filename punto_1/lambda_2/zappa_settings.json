@@ -1,0 +1,22 @@
+{
+    "dev": {
+        "app_function": "transform_dolar.lambda_handler",
+        "aws_region": "us-east-1",
+        "project_name": "lambda-2",
+        "runtime": "python3.8",
+        "s3_bucket": "transform-dolar-jp",
+        "keep_warm": false,
+        "role_name": "LabRole",
+        "manage_roles": false,
+        "apigateway_enabled": false,
+        "events": [{
+                "function": "transform_dolar.lambda_handler",
+                "event_source": {
+                      "arn":  "arn:aws:s3:::get-info-dolar-jp",
+                      "events": [
+                        "s3:ObjectCreated:*" 
+                      ]
+                }
+        }]
+    }
+}
