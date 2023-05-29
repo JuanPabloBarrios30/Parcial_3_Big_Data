@@ -1,0 +1,58 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+ build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2 
+        with:
+          python-version: '3.8'
+      - name: Install requirements
+        run: | 
+          pip install virtualenv
+          virtualenv env
+          source env/bin/activate
+          pip install -r requirements.txt
+          
+      - name: Check code with Flake8 in the first Lambda
+        run: | 
+          source env/bin/activate
+          flake8 punto_1/lambda_1/get_dolar.py
+          flake8 punto_1/lambda_2/transform_dolar.py
+          flake8 punto_3/consumidor_franja_inferior.py
+          flake8 punto_3/consumidor_franja_superior.py
+          flake8 punto_3/productor_1.py
+          flake8 punto_3/productor_2.py
+          
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN}}
+          aws-region: us-east-1
+          
+      - name: Execute unit test
+        run: | 
+          source env/bin/activate
+          cd punto_3
+          pytest
