@@ -38,7 +38,7 @@ https://spark.apache.org/docs/latest/ml-pipeline.html
 
 ## 1. Franjas de Bollinger
 
-Para este ejercicio, se decidio hacer uso del proyecto del dólar realizado en el segundo corte. Sin embargo, tambien se aplico el procedimiento a un conjunto de datos de Yahoo Finanzas, con el fin de corroborar el método. Para ello se ejecutaron los siguientes pasos:
+Para este ejercicio, se decidio hacer uso del proyecto del dólar realizado en el primer corte. Sin embargo, tambien se aplico el procedimiento a un conjunto de datos de Yahoo Finanzas, con el fin de corroborar el método. Para ello se ejecutaron los siguientes pasos:
 1. Se creó una vista para agregar una columna adicional que almacenaria los datos de la desviación estándar móvil.
 2. Luego, a partir de esa vista, se calculó la media móvil y los limites de la franja de Bollinger (superior e inferior).
 
