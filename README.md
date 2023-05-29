@@ -68,11 +68,23 @@ El resultado obtenido despues de la ejecución del Pipeline se puede ver a conti
 
 ![image](https://github.com/JuanPabloBarrios30/Parcial_3_Big_Data/assets/89982238/483b6348-b1e1-4040-9c31-157183e444ff)
 
-## 3. Productores de datos del dólar
+## 3. Productores y consumidores de datos del dólar
 
 Para el ejercicio final, se crean cuatro programas en Python, donde dos de ellos van a ser productores, y los otros dos, consumidores. Los programas productores van a generar datos del dólar en un intervalo de horas específico, y los van a transmitir a través de una secuencia de datos en Kinesis. Finalmente, los programas consumidores van a recibir esos datos y los procesan de tal forma que puedan hallar la franja de Bollinger para los datos transmitidos y, en caso de que suceda, arrojen una alerta en caso de que se sobrepase la franja superior o se esté por debajo de la franja inferior.
 
+A continuación se ve el código de los productores en ejecución:
+
+![image](https://github.com/JuanPabloBarrios30/Parcial_3_Big_Data/assets/89982238/1bfcb577-c681-454e-904b-18dc82c13a59)
+
+De igual forma, está el código del consumidor que procesa los datos recibidos por parte de los productores:
+
+![image](https://github.com/JuanPabloBarrios30/Parcial_3_Big_Data/assets/89982238/0f1d3580-7352-4514-b030-0d3fd1493586)
+
+En caso de que alguno de los valores entregados por el productor, esté por debajo de la franja, se arroja la siguiente alerta:
+
 ![image](https://github.com/JuanPabloBarrios30/Parcial_3_Big_Data/assets/89982238/60207297-55f7-43fa-9ae7-b7a7d64082f3)
+
+Por otro lado, en caso de que los valores entregados por el productor, esten por encima de la franja, salta la siguiente alerta:
 
 ![image](https://github.com/JuanPabloBarrios30/Parcial_3_Big_Data/assets/89982238/c1826056-31d9-4b36-9a81-4aa39fd62a88)
 
