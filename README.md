@@ -70,7 +70,7 @@ El resultado obtenido despues de la ejecución del Pipeline se puede ver a conti
 
 ## 3. Productores y consumidores de datos del dólar
 
-Para el ejercicio final, se crean cuatro programas en Python, donde dos de ellos van a ser productores, y los otros dos, consumidores. Los programas productores van a generar datos del dólar en un intervalo de horas específico, y los van a transmitir a través de una secuencia de datos en Kinesis. Finalmente, los programas consumidores van a recibir esos datos y los procesan de tal forma que puedan hallar la franja de Bollinger para los datos transmitidos y, en caso de que suceda, arrojen una alerta en caso de que se sobrepase la franja superior o se esté por debajo de la franja inferior.
+Para el ejercicio final, se crean cuatro programas en Python, donde dos de ellos van a ser productores, y los otros dos, consumidores. Los programas productores van a generar datos del dólar en un intervalo de horas específico, y los van a transmitir a través de una secuencia de datos en Kinesis. Finalmente, los programas consumidores van a recibir esos datos y los procesarán de tal forma que puedan hallar la franja de Bollinger para los datos transmitidos. Cabe añadir que se configuraron los consumidores para que arrojen una alerta en caso de que se sobrepase la franja superior o se esté por debajo de la franja inferior.
 
 A continuación se ve el código de los productores en ejecución:
 
